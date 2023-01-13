@@ -10,6 +10,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -23,7 +24,13 @@ class TicketResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('ticket_code')
+                ->required()
+                ->maxLength(255), 
+                Forms\Components\TextInput::make('asign_by')
+                ->required()
+                ->maxLength(255), 
+               
             ]);
     }
 
@@ -31,7 +38,8 @@ class TicketResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('ticket_code'),
+                TextColumn::make('asign_by'),
             ])
             ->filters([
                 //

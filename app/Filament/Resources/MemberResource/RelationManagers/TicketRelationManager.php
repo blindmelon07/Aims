@@ -3,12 +3,13 @@
 namespace App\Filament\Resources\MemberResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Ticket;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class TicketRelationManager extends RelationManager
 {
@@ -20,9 +21,11 @@ class TicketRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('ticket_code')
-                    ->required()
-                    ->maxLength(255), 
+                Forms\Components\Select::make('ticket_code')
+                    ->multiple()
+                    ->reactive()
+                    ->options(Ticket::all()->pluck('ticket_code','0')->toArray())
+                    ->required(), 
                     Forms\Components\TextInput::make('asign_by')
                     ->required()
                     ->maxLength(255), 
@@ -35,7 +38,7 @@ class TicketRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                //Tables\Columns\TextColumn::make('ticket_code'),
+                Tables\Columns\TextColumn::make('ticket_code'),
             ])
             ->filters([
                 //
@@ -48,7 +51,7 @@ class TicketRelationManager extends RelationManager
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                //Tables\Actions\DeleteBulkAction::make(),
             ]);
     }    
 }
