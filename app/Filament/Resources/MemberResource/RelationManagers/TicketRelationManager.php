@@ -21,10 +21,9 @@ class TicketRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('ticket_code')
-                    ->multiple()
-                    ->reactive()
-                    ->options(Ticket::all()->pluck('ticket_code','0')->toArray())
+                Forms\Components\TextInput::make('ticket_code')
+                    //->multiple()
+                    //->options(Ticket::pluck('member_id', 'ticket_code')) 
                     ->required(), 
                     Forms\Components\TextInput::make('asign_by')
                     ->required()
@@ -39,6 +38,8 @@ class TicketRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('ticket_code'),
+                Tables\Columns\TextColumn::make('member_id'),
+                Tables\Columns\TextColumn::make('asign_by'),
             ])
             ->filters([
                 //

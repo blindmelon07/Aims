@@ -8,6 +8,7 @@ use App\Models\Member;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\MemberResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -48,6 +49,8 @@ class MemberResource extends Resource
                 Forms\Components\TextInput::make('branch_name')
                 ->required()
                 ->maxLength(255),
+                
+                
             ]);
     }
 
@@ -55,6 +58,7 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('ticket.ticket_code')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('clientid')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('fullname')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('address')->sortable()->searchable(),
@@ -63,6 +67,8 @@ class MemberResource extends Resource
                 Tables\Columns\TextColumn::make('gender')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('cellnumber')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('branch_name')->sortable()->searchable(),
+               
+
             ])
             ->filters([
                 //
@@ -79,7 +85,7 @@ class MemberResource extends Resource
     public static function getRelations(): array
     {
         return [
-            TicketRelationManager::class
+            TicketRelationManager::class,
         ];
     }
     

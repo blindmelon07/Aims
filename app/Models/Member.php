@@ -21,7 +21,7 @@ class Member extends Model
                 'cellnumber',
                 'branch_name',
 
-                                ];
+       ];
 
 
 
@@ -30,8 +30,7 @@ class Member extends Model
         return $this->hasMany(Ticket::class);
     }
 
-
-
+    
 
 
 }
